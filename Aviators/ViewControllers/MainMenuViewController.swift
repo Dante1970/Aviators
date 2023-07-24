@@ -10,12 +10,18 @@ import SpriteKit
 
 class MainMenuViewController: UIViewController {
     
+    // MARK: - Private properties
+    
+    private let backgroundImage = UIImageView(image: UIImage(named: "background"))
+    
     private let playButton: UIButton = {
         let button = UIButton()
         button.setTitle("PLAY", for: .normal)
         button.backgroundColor = .purple
         button.addTarget(self, action: #selector(playTapped), for: .touchUpInside)
         button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
         return button
     }()
     
@@ -24,6 +30,9 @@ class MainMenuViewController: UIViewController {
         button.setTitle("ABOUT", for: .normal)
         button.backgroundColor = .purple
         button.layer.cornerRadius = 10
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.white.cgColor
+        button.addTarget(self, action: #selector(aboutButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -33,16 +42,23 @@ class MainMenuViewController: UIViewController {
         stackView.spacing = 20
         return stackView
     }()
-
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
 
         makeUI()
     }
     
+    // MARK: - Private func
+    
+    @objc private func aboutButtonTapped() {
+        showAboutViewController()
+    }
+    
     @objc private func playTapped() {
         
-        guard let url = URL(string: "https://gist.githubusercontent.com/Dante1970/f6dd8bc4d6fb6c3c99b7d5dab3f17f73/raw/f672e5c9d263e61144b907bb3c20ae0517f9f697/google-data.json") else { return }
+        guard let url = URL(string: "https://raw.githubusercontent.com/Dante1970/google-data/main/google-data.json") else { return }
         
         let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
             
@@ -56,8 +72,7 @@ class MainMenuViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     if responseData.access {
-                        print(responseData.link)
-                        self?.showWebView()
+                        self?.showWebView(urlString: responseData.link)
                     } else {
                         self?.showGameViewController()
                     }
@@ -70,31 +85,43 @@ class MainMenuViewController: UIViewController {
         task.resume()
     }
     
-    private func showWebView() {
-        print("func showWebView")
-//        DispatchQueue.main.async {
-//            let webViewController = WebViewController() // Замените на свой класс WebViewController
-//            self.present(webViewController, animated: true)
-//        }
+    private func showAboutViewController() {
+        let aboutVC = AboutViewController()
+        aboutVC.modalPresentationStyle = .fullScreen
+        present(aboutVC, animated: true, completion: nil)
+    }
+    
+    private func showWebView(urlString: String) {
+        DispatchQueue.main.async {
+            let webViewController = WebViewViewController(urlString: urlString)
+            self.present(webViewController, animated: true)
+        }
     }
     
     private func showGameViewController() {
         DispatchQueue.main.async {
             let gameVC = GameViewController()
+            gameVC.modalPresentationStyle = .fullScreen
             self.present(gameVC, animated: true)
         }
     }
     
     private func makeUI() {
+        view.insertSubview(backgroundImage, at: 0)
         view.addSubview(stackView)
-        
         setupConstraints()
     }
     
     private func setupConstraints() {
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             playButton.heightAnchor.constraint(equalToConstant: 60),
             aboutButton.heightAnchor.constraint(equalToConstant: 60),
             

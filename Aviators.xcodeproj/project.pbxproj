@@ -18,6 +18,11 @@
 		BEB302162A6E5C6F00BB7A97 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */; };
 		BEB302182A6E747400BB7A97 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302172A6E747400BB7A97 /* Starship.swift */; };
 		BEB3021A2A6EDACC00BB7A97 /* GoogleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302192A6EDACC00BB7A97 /* GoogleData.swift */; };
+		BEB3021C2A6EE15700BB7A97 /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB3021B2A6EE15700BB7A97 /* WebViewViewController.swift */; };
+		BEB302222A6EF75500BB7A97 /* GameSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302212A6EF75500BB7A97 /* GameSceneDelegate.swift */; };
+		BEB302242A6F24E000BB7A97 /* GameOverViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302232A6F24E000BB7A97 /* GameOverViewControllerDelegate.swift */; };
+		BEB302262A6F2B7400BB7A97 /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302252A6F2B7400BB7A97 /* GameManager.swift */; };
+		BEB302292A6F352A00BB7A97 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302282A6F352A00BB7A97 /* AboutViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +38,11 @@
 		BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		BEB302172A6E747400BB7A97 /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		BEB302192A6EDACC00BB7A97 /* GoogleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleData.swift; sourceTree = "<group>"; };
+		BEB3021B2A6EE15700BB7A97 /* WebViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
+		BEB302212A6EF75500BB7A97 /* GameSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSceneDelegate.swift; sourceTree = "<group>"; };
+		BEB302232A6F24E000BB7A97 /* GameOverViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewControllerDelegate.swift; sourceTree = "<group>"; };
+		BEB302252A6F2B7400BB7A97 /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		BEB302282A6F352A00BB7A97 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,15 +79,52 @@
 				BEB301FE2A6BBC5200BB7A97 /* GameScene.sks */,
 				BEB302002A6BBC5200BB7A97 /* Actions.sks */,
 				BEB302022A6BBC5200BB7A97 /* GameScene.swift */,
-				BEB302172A6E747400BB7A97 /* Starship.swift */,
-				BEB302042A6BBC5200BB7A97 /* GameViewController.swift */,
-				BEB302132A6DCB4A00BB7A97 /* GameOverViewController.swift */,
-				BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */,
-				BEB302192A6EDACC00BB7A97 /* GoogleData.swift */,
+				BEB302272A6F2B9C00BB7A97 /* Managers */,
+				BEB3022A2A6F387300BB7A97 /* Protocols */,
+				BEB3021E2A6EE16700BB7A97 /* ViewControllers */,
+				BEB3021D2A6EE15E00BB7A97 /* Models */,
 				BEB302092A6BBC5400BB7A97 /* Assets.xcassets */,
 				BEB3020B2A6BBC5400BB7A97 /* LaunchScreen.storyboard */,
 			);
 			path = Aviators;
+			sourceTree = "<group>";
+		};
+		BEB3021D2A6EE15E00BB7A97 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BEB302172A6E747400BB7A97 /* Starship.swift */,
+				BEB302192A6EDACC00BB7A97 /* GoogleData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BEB3021E2A6EE16700BB7A97 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BEB302042A6BBC5200BB7A97 /* GameViewController.swift */,
+				BEB302132A6DCB4A00BB7A97 /* GameOverViewController.swift */,
+				BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */,
+				BEB3021B2A6EE15700BB7A97 /* WebViewViewController.swift */,
+				BEB302282A6F352A00BB7A97 /* AboutViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BEB302272A6F2B9C00BB7A97 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				BEB302252A6F2B7400BB7A97 /* GameManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		BEB3022A2A6F387300BB7A97 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				BEB302212A6EF75500BB7A97 /* GameSceneDelegate.swift */,
+				BEB302232A6F24E000BB7A97 /* GameOverViewControllerDelegate.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,11 +200,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				BEB302142A6DCB4A00BB7A97 /* GameOverViewController.swift in Sources */,
+				BEB302222A6EF75500BB7A97 /* GameSceneDelegate.swift in Sources */,
 				BEB302162A6E5C6F00BB7A97 /* MainMenuViewController.swift in Sources */,
+				BEB302262A6F2B7400BB7A97 /* GameManager.swift in Sources */,
+				BEB302242A6F24E000BB7A97 /* GameOverViewControllerDelegate.swift in Sources */,
 				BEB3021A2A6EDACC00BB7A97 /* GoogleData.swift in Sources */,
+				BEB302292A6F352A00BB7A97 /* AboutViewController.swift in Sources */,
 				BEB302032A6BBC5200BB7A97 /* GameScene.swift in Sources */,
 				BEB302052A6BBC5200BB7A97 /* GameViewController.swift in Sources */,
 				BEB301FD2A6BBC5200BB7A97 /* AppDelegate.swift in Sources */,
+				BEB3021C2A6EE15700BB7A97 /* WebViewViewController.swift in Sources */,
 				BEB302182A6E747400BB7A97 /* Starship.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

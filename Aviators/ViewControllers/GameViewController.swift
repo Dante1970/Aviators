@@ -9,7 +9,9 @@ import UIKit
 import SpriteKit
 import GameplayKit
 
-final class GameViewController: UIViewController {
+final class GameViewController: UIViewController, GameSceneDelegate, GameOverViewControllerDelegate {
+    
+    // MARK: - Private properties
     
     private var gameScene: GameScene!
     private var gameOverViewController: GameOverViewController?
@@ -18,7 +20,7 @@ final class GameViewController: UIViewController {
         let button = UIButton()
         button.setTitle("X", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 40, weight: .bold)
-        button.addTarget(self, action: #selector(closeButtonTupped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -53,7 +55,9 @@ final class GameViewController: UIViewController {
         stackView.distribution = .fillEqually
         return stackView
     }()
-
+    
+    // MARK: - viewDidLoad
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,6 +68,7 @@ final class GameViewController: UIViewController {
             scene.scaleMode = .aspectFill
             
             gameScene = scene as? GameScene
+            gameScene.gameSceneDelegate = self
 
             skView.presentScene(scene)
             
@@ -93,52 +98,61 @@ final class GameViewController: UIViewController {
         return true
     }
     
-    // MARK: - Private func
+    // MARK: - Public func
     
-    // actions for close button
-    @objc
-    private func closeButtonTupped() {
+    func gameOver(score: String) {
         if gameOverViewController == nil {
             gameOverViewController = GameOverViewController()
+            gameOverViewController?.delegate = self
         }
         
-        // Present the GameOverViewController
-        if let gameOverVC = gameOverViewController {
+        if let gameOverVC = gameOverViewController, presentedViewController == nil {
+            gameOverVC.score = score
+            gameOverVC.modalPresentationStyle = .fullScreen
             present(gameOverVC, animated: true, completion: nil)
         }
-        
-        gameScene.closeButtonTupped()
     }
     
-    // actions for up button
-    @objc
-    private func upButtonTouchDown() {
+    func restartGame() {
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            self.gameScene.resetTheGame()
+        }
+    }
+    
+    func exitGame() {
+        dismissToRootViewController()
+    }
+
+    
+    // MARK: - Private func
+    
+    @objc private func closeButtonTapped() {
+        gameScene.closeButtonTapped()
+        dismissToRootViewController()
+    }
+    
+    @objc private func upButtonTouchDown() {
         gameScene.upButtonTouchDown()
     }
     
-    @objc
-    private func upButtonTouchUpInside() {
+    @objc private func upButtonTouchUpInside() {
         gameScene.upButtonTouchUpInside()
     }
     
-    @objc
-    private func upButtonTouchUpOutside() {
+    @objc private func upButtonTouchUpOutside() {
         gameScene.upButtonTouchUpOutside()
     }
     
-    // actions for down button
-    @objc
-    private func downButtonTouchDown() {
+    @objc private func downButtonTouchDown() {
         gameScene.downButtonTouchDown()
     }
     
-    @objc
-    private func downButtonTouchUpInside() {
+    @objc private func downButtonTouchUpInside() {
         gameScene.downButtonTouchUpInside()
     }
     
-    @objc
-    private func downButtonTouchUpOutside() {
+    @objc private func downButtonTouchUpOutside() {
         gameScene.downButtonTouchUpOutside()
     }
     
@@ -147,6 +161,15 @@ final class GameViewController: UIViewController {
         view.addSubview(buttonStackView)
         
         setupConstraints()
+    }
+    
+    private func dismissToRootViewController() {
+        var presentingViewController = self.presentingViewController
+        while presentingViewController != nil {
+            let nextPresentingVC = presentingViewController?.presentingViewController
+            presentingViewController?.dismiss(animated: false, completion: nil)
+            presentingViewController = nextPresentingVC
+        }
     }
     
     private func setupConstraints() {

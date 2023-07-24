@@ -10,6 +10,10 @@ import GameplayKit
 
 class GameScene: SKScene {
     
+    weak var gameSceneDelegate: GameSceneDelegate?
+    
+    private var isGameStarted = false
+    
     private var speedGravity: Double = -0.2
     
     private let starshipCategory: UInt32 = 0x1 << 0
@@ -68,6 +72,7 @@ class GameScene: SKScene {
         run(bonusRunAction)
 
         createScoreLabel()
+        score = 0
 
         createTimer()
         startTimer()
@@ -76,7 +81,7 @@ class GameScene: SKScene {
     // MARK: - Public func
     
     // actions for close button tupped
-    func closeButtonTupped() {
+    func closeButtonTapped() {
         isPaused = !isPaused
     }
     
@@ -115,6 +120,14 @@ class GameScene: SKScene {
     // MARK: - didSimulatePhysics
     
     override func didSimulatePhysics() {
+        
+        if isGameStarted {
+            GameManager.shared.updateHighScoreIfNeeded(with: score)
+            scoreLabel.text = "Score: \(score)"
+        }
+        
+        GameManager.shared.updateHighScoreIfNeeded(with: score)
+        
         enumerateChildNodes(withName: "asteroid") { asteroid, stop in
             let widthScreen = UIScreen.main.bounds.width + asteroid.frame.size.width
             if asteroid.position.x < -widthScreen {
@@ -130,6 +143,31 @@ class GameScene: SKScene {
                 bonus.removeFromParent()
             }
         }
+    }
+    
+    // MARK: - Public func
+    
+    func resetTheGame() {
+        enumerateChildNodes(withName: "asteroid") { node, _ in
+            node.removeFromParent()
+        }
+        enumerateChildNodes(withName: "bonus") { node, _ in
+            node.removeFromParent()
+        }
+
+        starship.removeFromParent()
+        setupStarship()
+
+        secondsPassed = 0
+        updateTimerLabel()
+
+        isPaused = false
+
+        speedGravity = -0.2
+        physicsWorld.gravity = CGVector(dx: speedGravity, dy: 0)
+        updateGravityForNodes()
+        
+        isGameStarted = false
     }
     
     // MARK: - Private func
@@ -155,6 +193,8 @@ class GameScene: SKScene {
     private func startTimer() {
         let timeInterval: TimeInterval = 1.0
         timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        isGameStarted = true
     }
     
     @objc
@@ -254,11 +294,6 @@ class GameScene: SKScene {
         
         return bonus
     }
-    
-    private func resetTheGame() {
-        score = 0
-        scoreLabel.text = "Score: \(score)"
-    }
 }
 
 // MARK: - Extension
@@ -271,13 +306,18 @@ extension GameScene: SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         
-        // contact airplane with asteroid
+        // Contact airplane with asteroid
         if contact.bodyA.categoryBitMask == starshipCategory && contact.bodyB.categoryBitMask == asteroidCategory || contact.bodyB.categoryBitMask == starshipCategory && contact.bodyA.categoryBitMask == asteroidCategory {
+            
+            isPaused = true
+            gameSceneDelegate?.gameOver(score: String(score))
+            
             self.score = 0
             self.scoreLabel.text = "Score: \(self.score)"
+            
         }
         
-        // contact airplane with bonus
+        // Contact airplane with bonus
         if contact.bodyA.categoryBitMask == starshipCategory && contact.bodyB.categoryBitMask == bonusCategory || contact.bodyB.categoryBitMask == starshipCategory && contact.bodyA.categoryBitMask == bonusCategory {
             self.score += 20
             self.scoreLabel.text = "Score: \(self.score)"
@@ -289,10 +329,11 @@ extension GameScene: SKPhysicsContactDelegate {
                 bonusNode = contact.bodyB.node as? SKSpriteNode
             }
 
-            // Удаляем объект bonusNode со сцены
+            // Remove the bonusNode from the scene
             if let nodeToRemove = bonusNode {
                 nodeToRemove.removeFromParent()
             }
         }
     }
 }
+
