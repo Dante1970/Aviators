@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "b24e3a7a428ffa5e38104ef0b9a67202-arcade-spaceship-icon.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "b24e3a7a428ffa5e38104ef0b9a67202-arcade-spaceship-icon-1.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "b24e3a7a428ffa5e38104ef0b9a67202-arcade-spaceship-icon-2.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
