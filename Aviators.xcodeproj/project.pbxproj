@@ -17,6 +17,7 @@
 		BEB302142A6DCB4A00BB7A97 /* GameOverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302132A6DCB4A00BB7A97 /* GameOverViewController.swift */; };
 		BEB302162A6E5C6F00BB7A97 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */; };
 		BEB302182A6E747400BB7A97 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302172A6E747400BB7A97 /* Starship.swift */; };
+		BEB3021A2A6EDACC00BB7A97 /* GoogleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEB302192A6EDACC00BB7A97 /* GoogleData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		BEB302132A6DCB4A00BB7A97 /* GameOverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverViewController.swift; sourceTree = "<group>"; };
 		BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		BEB302172A6E747400BB7A97 /* Starship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
+		BEB302192A6EDACC00BB7A97 /* GoogleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				BEB302042A6BBC5200BB7A97 /* GameViewController.swift */,
 				BEB302132A6DCB4A00BB7A97 /* GameOverViewController.swift */,
 				BEB302152A6E5C6F00BB7A97 /* MainMenuViewController.swift */,
+				BEB302192A6EDACC00BB7A97 /* GoogleData.swift */,
 				BEB302092A6BBC5400BB7A97 /* Assets.xcassets */,
 				BEB3020B2A6BBC5400BB7A97 /* LaunchScreen.storyboard */,
 			);
@@ -151,6 +154,7 @@
 			files = (
 				BEB302142A6DCB4A00BB7A97 /* GameOverViewController.swift in Sources */,
 				BEB302162A6E5C6F00BB7A97 /* MainMenuViewController.swift in Sources */,
+				BEB3021A2A6EDACC00BB7A97 /* GoogleData.swift in Sources */,
 				BEB302032A6BBC5200BB7A97 /* GameScene.swift in Sources */,
 				BEB302052A6BBC5200BB7A97 /* GameViewController.swift in Sources */,
 				BEB301FD2A6BBC5200BB7A97 /* AppDelegate.swift in Sources */,

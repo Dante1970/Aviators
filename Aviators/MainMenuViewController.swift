@@ -41,8 +41,48 @@ class MainMenuViewController: UIViewController {
     }
     
     @objc private func playTapped() {
-        let gameVC = GameViewController()
-        present(gameVC, animated: true)
+        
+        guard let url = URL(string: "https://gist.githubusercontent.com/Dante1970/f6dd8bc4d6fb6c3c99b7d5dab3f17f73/raw/f672e5c9d263e61144b907bb3c20ae0517f9f697/google-data.json") else { return }
+        
+        let task = URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+            
+            guard let data = data, error == nil else {
+                print("Error: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            do {
+                let responseData = try JSONDecoder().decode(GoogleData.self, from: data)
+                
+                DispatchQueue.main.async {
+                    if responseData.access {
+                        print(responseData.link)
+                        self?.showWebView()
+                    } else {
+                        self?.showGameViewController()
+                    }
+                }
+            } catch {
+                print("Error decoding JSON: \(error.localizedDescription)")
+            }
+        }
+        
+        task.resume()
+    }
+    
+    private func showWebView() {
+        print("func showWebView")
+//        DispatchQueue.main.async {
+//            let webViewController = WebViewController() // Замените на свой класс WebViewController
+//            self.present(webViewController, animated: true)
+//        }
+    }
+    
+    private func showGameViewController() {
+        DispatchQueue.main.async {
+            let gameVC = GameViewController()
+            self.present(gameVC, animated: true)
+        }
     }
     
     private func makeUI() {
